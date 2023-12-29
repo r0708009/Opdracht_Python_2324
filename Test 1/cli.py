@@ -52,17 +52,17 @@ def main():
             while True:
                 invoer = input(tekst).strip(": ")
                 if not invoer:
-                    print(f"Voer een geldige {tekst} in.")
+                    print(f"Voer een geldige {tekst.lower().strip(': ')} in.")
                 else:
                     return invoer
 
         if keuze == "1":
             while True:
-                naam = geldige_invoer("Voor- en achternaam: ")
+                naam = geldige_invoer("Voor- en achternaam: ").title()
                 if len(naam.split()) >= 2:
-                    geboortedatum = geldige_invoer("Geboortedatum: ")
-                    rang = geldige_invoer("Rang: ")
-                    eenheid = geldige_invoer("Eenheid: ")
+                    geboortedatum = geldige_invoer("Geboortedatum (dd-mm-jjjj): ")
+                    rang = geldige_invoer("Rang: ").capitalize()
+                    eenheid = geldige_invoer("Eenheid: ").capitalize()
                     soldaat = Soldaat(None, naam, geboortedatum, rang, eenheid)
                     soldaat_controller.voeg_soldaat_toe(soldaat)
                     print("Soldaat toegevoegd.")
@@ -87,6 +87,7 @@ def main():
             while True:
                 if soldaat:
                     print("\nVoor- en achternaam moeten ingevuld worden voor veiligheidsredenen.")
+                    print("Druk enter indien u niet wenst te wijzigen.")
                     nieuwe_naam = geldige_invoer(f"(Update) voor- en achternaam ({soldaat.naam}): ") or soldaat.naam
                     if len(nieuwe_naam.split()) >= 2:
                         nieuwe_geboortedatum = input(f"Update geboortedatum ({soldaat.geboortedatum}): ") or soldaat.geboortedatum
@@ -122,22 +123,29 @@ def main():
                             break
 
         elif keuze == "6":
-            zoek_eenheid = input("Eenheid om te zoeken: ")
+            zoek_eenheid = input("Eenheid om te zoeken: ").capitalize()
             soldaten = soldaat_controller.krijg_soldaten_van_eenheid(zoek_eenheid)
             toon_soldaten(soldaten)
 
         elif keuze == "7":
-            wapen_naam = input("Naam van het wapen: ")
-            eenheid = input("Eenheid waar het wapen toe behoort: ")
-            serienummer = genereer_serienummer(eenheid, wapen_naam)
+            wapen_naam = input("Naam van het wapen: ").upper()
+            eenheid = input("Eenheid waar het wapen toe behoort: ").capitalize()
+            serienummer = genereer_serienummer(eenheid, wapen_naam).upper()
+            print(f"Uw verkregen serienummer: {serienummer}")
             wapen = Dienstwapen(None, wapen_naam, eenheid, serienummer)
             wapen_controller.voeg_wapen_toe(wapen)
             print("Wapen toegevoegd.")
 
         elif keuze == "8":
-            wapen_id = input("Wapen ID om te verwijderen: ")
-            wapen_controller.verwijder_wapen(wapen_id)
-            print("Wapen verwijderd.")
+            while True:
+                wapen_id = input("Wapen ID om te verwijderen: ")
+                wapen = wapen_controller.krijg_wapen_by_id(wapen_id)
+                if wapen:
+                    wapen_controller.verwijder_wapen(wapen_id)
+                    print("Wapen verwijderd.")
+                    break
+                else:
+                    print("Ongeldige Wapen ID. Probeer opnieuw.\n")
 
         elif keuze == "9":
             wapen_id = input("Wapen ID om bij te werken: ")
