@@ -9,11 +9,9 @@ from datetime import datetime
 
 from soldaat import Soldaat
 from wapen import Wapen
-from component import Component
 
 from soldaat_controller import SoldaatController
 from wapen_controller import WapenController
-from component_controller import ComponentController
 
 def genereer_random_karakters():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=3))
@@ -214,7 +212,7 @@ def opzoekingen_uitvoeren(soldaat_controller, wapen_controller):
         else:
             print("Ongeldige optie. Probeer opnieuw.")
 
-def hoofdmenu(soldaat_controller, wapen_controller, component_controller):
+def hoofdmenu(soldaat_controller, wapen_controller):
     while True:
         print("\nHoofdmenu:")
         print("1. Soldaten beheren")
@@ -242,9 +240,8 @@ def main():
     db_name = "soldaten_database.db"
     soldaat_controller = SoldaatController(db_name)
     wapen_controller = WapenController(db_name)
-    component_controller = ComponentController(db_name)
     
-    hoofdmenu(soldaat_controller, wapen_controller, component_controller)
+    hoofdmenu(soldaat_controller, wapen_controller)
 
 if __name__ == "__main__":
     main()

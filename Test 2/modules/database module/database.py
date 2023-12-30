@@ -35,13 +35,6 @@ def create_tables(conn):
             )
         """)
 
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS componenten (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                naam TEXT
-            )
-        """)
-
         conn.commit()
     except sqlite3.Error as e:
         print(e)
