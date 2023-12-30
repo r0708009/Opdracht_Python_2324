@@ -55,7 +55,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                 stamnummer = f"{voornaam[0]}{initialen}{geboortedatum[::-1]}".replace("-","")
 
                 if soldaat_controller.controleer_stamnummer(stamnummer):
-                    print("Stamnummer bestaat al. Het wordt aangepast met 3 willekeurige karakters.")
+                    print(f"Stamnummer {stamnummer} bestaat al. Het wordt aangepast met 3 willekeurige karakters.")
                     stamnummer += genereer_random_karakters().upper()
                     print(f"Nieuw stamnummer: {stamnummer}")
                 else:
@@ -82,7 +82,8 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                 wapen_naam = WapenController.check_component_wapen(component)
 
                 serienummer = WapenController.genereer_serienummer(component, wapen_naam)
-                # serienummer = "test"
+                
+                print(f"Toegewezen wapen: {wapen_naam} ({serienummer})")
 
                 wapen = Wapen(None, wapen_naam, serienummer)
                 wapen_controller.voeg_wapen_toe(wapen)
