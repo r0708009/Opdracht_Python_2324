@@ -18,7 +18,7 @@ class SoldaatController:
         return result > 0
 
     def verwijder_soldaat(self, soldaat_id):
-        query = "DELETE FROM soldaten WHERE soldaat_id = ?"
+        query = "DELETE FROM soldaten WHERE id = ?"
         self.cursor.execute(query, (soldaat_id,))
         self.conn.commit()
 
@@ -28,7 +28,7 @@ class SoldaatController:
         self.conn.commit()
 
     def krijg_soldaat_by_id(self, soldaat_id):
-        query = "SELECT * FROM soldaten WHERE soldaat_id = ?"
+        query = "SELECT * FROM soldaten WHERE id = ?"
         self.cursor.execute(query, (soldaat_id,))
         soldaat_info = self.cursor.fetchone()
 
@@ -37,6 +37,12 @@ class SoldaatController:
             return soldaat
         else:
             return None
+
+    # def krijg_soldaat_by_id(self, soldaat_id):
+    #     query = "SELECT * FROM Soldaten WHERE ID = ?"
+    #     self.cursor.execute(query, (soldaat_id,))
+    #     result = self.cursor.fetchone()
+    #     return result
 
     def krijg_alle_soldaten(self):
         query = "SELECT * FROM soldaten"

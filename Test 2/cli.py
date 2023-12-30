@@ -93,8 +93,18 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "2":
-            # Implementeer verwijderen van een soldaat
-            print("2")
+            while True:
+                soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om te verwijderen: "))
+                if soldaat:
+                    test = input(f"Bent u zeker dat u {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam} ({soldaat.stamnummer}) wilt verwijderen?\n")
+                    if test == "ja":
+                        soldaat_controller.verwijder_soldaat(soldaat.soldaat_id)
+                        print("Soldaat verwijderd.")
+                        break
+                    else:
+                        continue
+                else:
+                    print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
 
         elif keuze == "3":
             # Implementeer bijwerken van een soldaat
