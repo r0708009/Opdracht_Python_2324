@@ -29,7 +29,7 @@ class SoldaatController:
 
     def update_soldaat_zonder_stamnummer(self, nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component, soldaat_id):
         query = "UPDATE soldaten SET voornaam = ?, familienaam = ?, geboortedatum = ?, stamnummer = ?, rang = ?, component = ? WHERE id = ?"
-        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component, soldaat_id))
+        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component))
         self.conn.commit()
 
     def krijg_soldaat_by_id(self, soldaat_id):

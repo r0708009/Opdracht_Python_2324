@@ -16,6 +16,13 @@ from wapen_controller import WapenController
 def genereer_random_karakters():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=3))
 
+def toon_soldaten(soldaten):
+    if not soldaten:
+        print("Geen soldaten gevonden.\n")
+    else:
+        for soldaat in soldaten:
+            print(soldaat)
+
 def soldaten_beheren(soldaat_controller, wapen_controller):
     while True:
         print("\n1. Voeg soldaat toe")
@@ -95,6 +102,8 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
 
+
+
         elif keuze == "2":
             while True:
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om te verwijderen: "))
@@ -108,6 +117,10 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                         continue
                 else:
                     print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
+
+
+
+
 
         elif keuze == "3":
             while True:
@@ -147,14 +160,27 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                 else:
                     print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
 
+
+
+
+
         elif keuze == "4":
-            # Implementeer weergeven van alle soldaten
-            print("4")
+            # soldaten = soldaat_controller.krijg_alle_soldaten()
+            toon_soldaten(soldaat_controller.krijg_alle_soldaten())
+
+
+
+
+
 
         elif keuze == "0":
             break
         else:
             print("Ongeldige optie. Probeer opnieuw.")
+
+
+
+
 
 def wapens_beheren(wapen_controller):
     while True:
@@ -238,7 +264,7 @@ def hoofdmenu(soldaat_controller, wapen_controller):
             print("Ongeldige optie. Probeer opnieuw.")
 
 def main():
-    db_name = "soldaten_database.db"
+    db_name = "db/soldaten_database.db"
     soldaat_controller = SoldaatController(db_name)
     wapen_controller = WapenController(db_name)
     
