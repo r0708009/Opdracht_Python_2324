@@ -30,6 +30,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
         if keuze == "1":
             while True:
+                print("\nSoldaat toevoegen:")
                 voornaam = input("Voornaam: ").strip()
                 while not voornaam:
                     print("Voornaam mag niet leeg zijn.")
@@ -50,7 +51,10 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                     except ValueError:
                         print("Voer een geldige geboortedatum in (dd-mm-jjjj).")
 
-                stamnummer = f"{voornaam[0]}{familienaam[0]}{geboortedatum[::-1]}".replace("-","")
+                familienamen = familienaam.split()
+                initialen = "".join([initiaal[0] for initiaal in familienamen]).upper()
+
+                stamnummer = f"{voornaam[0]}{initialen}{geboortedatum[::-1]}".replace("-","")
 
                 if soldaat_controller.controleer_stamnummer(stamnummer):
                     print("Stamnummer bestaat al. Het wordt aangepast met 3 willekeurige karakters.")
@@ -107,8 +111,42 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                     print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
 
         elif keuze == "3":
-            # Implementeer bijwerken van een soldaat
-            print("3")
+            while True:
+                soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om bij te werken: "))
+                if soldaat:
+                    print("\nSoldaat bijwerken:")
+                    print("Druk enter indien u niet wenst te wijzigen.\n")
+                    nieuwe_voornaam = input(f"Voornaam aanpassen ({soldaat.voornaam}):") or soldaat.voornaam
+                    nieuwe_familienaam = input(f"Familienaam aanpassen ({soldaat.familienaam}):") or soldaat.familienaam
+                    nieuwe_geboortedatum = input(f"Geboortedatum aanpassen ({soldaat.geboortedatum}):") or soldaat.geboortedatum
+
+
+                    if (nieuwe_voornaam == soldaat.voornaam) and (nieuwe_familienaam == soldaat.familienaam) and (nieuwe_geboortedatum == soldaat.geboortedatum): 
+                        print(f"Stamnummer blijft zoals het was. ({soldaat.stamnummer})")
+                        nieuw_stamnummer = ""
+                    else:
+                        nieuw_stamnummer = f"{nieuwe_voornaam[0]}{nieuwe_familienaam[0]}{nieuwe_geboortedatum[::-1]}".replace("-","")
+
+                        if soldaat_controller.controleer_stamnummer(nieuw_stamnummer):
+                            print("Stamnummer bestaat al. Het wordt aangepast met 3 willekeurige karakters.")
+                            nieuw_stamnummer += genereer_random_karakters().upper()
+                            print(f"Nieuw stamnummer: {nieuw_stamnummer}")
+                        else:
+                            print(f"Verkregen stamnummer: {nieuw_stamnummer}")
+
+                    nieuwe_rang = input(f"Rang aanpassen ({soldaat.rang}):") or soldaat.rang
+                    nieuw_component = input(f"Component aanpassen ({soldaat.component}):") or soldaat.component
+                    
+                    if nieuw_stamnummer:
+                        soldaat_controller.update_soldaat_met_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuw_component, soldaat.soldaat_id)
+                        print("Soldaat bijgewerkt.\n")
+                        break
+                    else: 
+                        soldaat_controller.update_soldaat_zonder_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, soldaat.stamnummer, nieuwe_rang, nieuw_component, soldaat.soldaat_id)
+                        print("Soldaat bijgewerkt.\n")
+                        break
+                else:
+                    print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
 
         elif keuze == "4":
             # Implementeer weergeven van alle soldaten
