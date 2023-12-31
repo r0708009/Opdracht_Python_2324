@@ -3,6 +3,8 @@ __pycache__/
 
 myenv/
 
+Applicatie/db/soldaten_database.db
+
 Applicatie/config.py
 
 
