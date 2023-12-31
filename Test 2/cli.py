@@ -333,8 +333,9 @@ def wapens_beheren(wapen_controller):
 def opzoekingen_uitvoeren(soldaat_controller, wapen_controller):
     while True:
         print("\n1. Zoek soldaat op naam")
-        print("2. Zoek wapen van een bepaalde eenheid")
-        print("3. Toon soldaten van een eenheid")
+        print("2. Zoek soldaat op stamnummer")
+        print("3. Zoek soldaat via serienummer van het wapen")
+        print("4. Toon soldaten van bepaald component")
         print("0. Terug naar hoofdmenu\n")
 
         keuze = input("Voer een optie in: ")
@@ -354,10 +355,24 @@ def opzoekingen_uitvoeren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "2":
-            # Implementeer zoeken van een wapen van een bepaalde eenheid
-            print("2")
+            print("\nWie zoekt u?")
+            soldaat_stamnummer = input("Geef het stamnummer van de soldaat: ").upper()
+            
+
+            soldaat = soldaat_controller.zoek_soldaat_op_stamnummer(soldaat_stamnummer)
+
+            if soldaat:
+                print(soldaat)
+                break
+            else:
+                print("Geen soldaat gevonden met het ingegeven stamnummer.")
+
 
         elif keuze == "3":
+            print("3")
+            
+
+        elif keuze == "4":
             # Implementeer weergeven van soldaten van een bepaalde eenheid
             print("3")
 

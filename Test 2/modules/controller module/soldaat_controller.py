@@ -55,6 +55,12 @@ class SoldaatController:
         soldaten = self.cursor.fetchall()
         return soldaten
 
+    def zoek_soldaat_op_stamnummer(self, stamnummer):
+        query = "SELECT * FROM soldaten WHERE stamnummer = ?"
+        self.cursor.execute(query, (stamnummer,))
+        soldaat = self.cursor.fetchone()
+        return soldaat
+
     def krijg_soldaten_van_component(self, component):
         query = "SELECT * FROM soldaten WHERE component = ?"
         self.cursor.execute(query, (component,))
