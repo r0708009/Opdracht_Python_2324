@@ -20,8 +20,6 @@ def genereer_random_karakters():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=3))
 
 
-
-
 def toon_soldaten(soldaten):
     if not soldaten:
         print("Geen soldaten gevonden.\n")
@@ -29,6 +27,12 @@ def toon_soldaten(soldaten):
         for soldaat in soldaten:
             print(soldaat)
 
+def toon_wapens(wapens):
+    if not wapens:
+        print("Geen wapens gevonden.\n")
+    else:
+        for wapen in wapens:
+            print(wapen)
 
 
 
@@ -48,7 +52,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
         if keuze == "1":
             while True:
-                print("\nSoldaat toevoegen:")
+                print("\nSoldaat toevoegen.")
                 voornaam = input("Voornaam: ").strip()
                 while not voornaam:
                     print("Voornaam mag niet leeg zijn.")
@@ -119,7 +123,10 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
         elif keuze == "2":
             while True:
+                print("\nSoldaat verwijderen.")
+
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om te verwijderen: "))
+
                 if soldaat:
                     test = input(f"Bent u zeker dat u {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam} ({soldaat.stamnummer}) wilt verwijderen? (ja/nee)\n")
                     if test == "ja":
@@ -127,7 +134,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                         print("Soldaat verwijderd.")
                         break
                     else:
-                        continue
+                        break
                 else:
                     print("Ongeldige Soldaat ID. Probeer opnieuw.\n")
 
@@ -136,6 +143,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "3":
+            print("\nSoldaat bijwerken.")
             while True:
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om bij te werken: "))
                 if soldaat:
@@ -208,6 +216,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "4":
+            print("\nLijst van alles soldaten:")
             toon_soldaten(soldaat_controller.krijg_alle_soldaten())
 
 
@@ -236,6 +245,8 @@ def wapens_beheren(wapen_controller):
 
         if keuze == "1":
 
+            print("\nWapen toevoegen.")
+
             wapen_naam = input("Naam van het wapen: ").upper()
             while not wapen_naam:
                     print("Naam mag niet leeg zijn.")
@@ -260,9 +271,38 @@ def wapens_beheren(wapen_controller):
             print("Wapen toegevoegd.")
 
 
+
+
+
         elif keuze == "2":
-            # Implementeer verwijderen van een wapen
-            print("2")
+            print("Wapen verwijderen.")
+
+            while True:
+                wapen = wapen_controller.krijg_wapen_by_id(input("Wapen ID om te verwijderen: "))
+
+                if wapen:
+                    test = input(f"Bent u zeker dat u de {wapen.naam} ({wapen.serienummer}) wilt verwijderen? (ja/nee)\n")
+                    if test == "ja":
+                        if SoldaatController.check_wapen_voor_verwijdering(wapen.serienummer):
+                            print("Dit wapen kan niet worden verwijderd omdat het serienummer aan een soldaat is gekoppeld.")
+                        else:
+                            wapen_controller.verwijder_wapen(wapen.wapen_id)
+                            print("Wapen verwijderd.")
+
+
+                        # wapen_controller.verwijder_wapen(wapen.wapen_id)
+                        # print("Wapen verwijderd.")
+
+                        break
+                    else:
+                        break
+
+                else:
+                    print("Ongeldige Wapen ID. Probeer opnieuw.\n")
+
+
+
+
 
         elif keuze == "3":
             # Implementeer bijwerken van een wapen

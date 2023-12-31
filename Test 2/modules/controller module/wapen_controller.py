@@ -27,17 +27,17 @@ class WapenController:
         self.conn.commit()
 
     def verwijder_wapen(self, wapen_id):
-        query = "DELETE FROM wapens WHERE wapen_id = ?"
+        query = "DELETE FROM wapens WHERE id = ?"
         self.cursor.execute(query, (wapen_id,))
         self.conn.commit()
 
     def update_wapen(self, wapen_id, nieuwe_naam, nieuwe_eenheid, nieuw_serienummer):
-        query = "UPDATE wapens SET wapen_naam = ?, eenheid = ?, serienummer = ? WHERE wapen_id = ?"
+        query = "UPDATE wapens SET wapen_naam = ?, eenheid = ?, serienummer = ? WHERE id = ?"
         self.cursor.execute(query, (nieuwe_naam, nieuwe_eenheid, nieuw_serienummer, wapen_id))
         self.conn.commit()
 
     def krijg_wapen_by_id(self, wapen_id):
-        query = "SELECT * FROM wapens WHERE wapen_id = ?"
+        query = "SELECT * FROM wapens WHERE id = ?"
         self.cursor.execute(query, (wapen_id,))
         wapen_info = self.cursor.fetchone()
 
@@ -80,4 +80,4 @@ class WapenController:
         elif component.lower() == 'medisch component':
             return 'FN 5.7'
 
-
+    
