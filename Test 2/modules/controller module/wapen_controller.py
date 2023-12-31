@@ -26,16 +26,6 @@ class WapenController:
         self.cursor.execute(query, (wapen.naam, wapen.serienummer))
         self.conn.commit()
 
-    # def voeg_wapen_toe(self, wapen):
-    #     query = "INSERT INTO wapens (wapen_naam, serienummer) VALUES (?, ?)"
-    #     values = (wapen.wapen_naam, wapen.serienummer)
-    #     try:
-    #         self.cursor.execute(query, values)
-    #         self.conn.commit()
-    #         print("Wapen toegevoegd aan de database.")
-    #     except sqlite3.Error as e:
-    #         print(f"Fout bij toevoegen van het wapen: {e}")
-
     def verwijder_wapen(self, wapen_id):
         query = "DELETE FROM wapens WHERE wapen_id = ?"
         self.cursor.execute(query, (wapen_id,))

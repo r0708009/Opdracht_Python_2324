@@ -13,8 +13,14 @@ from wapen import Wapen
 from soldaat_controller import SoldaatController
 from wapen_controller import WapenController
 
+
+
+
 def genereer_random_karakters():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=3))
+
+
+
 
 def toon_soldaten(soldaten):
     if not soldaten:
@@ -22,6 +28,9 @@ def toon_soldaten(soldaten):
     else:
         for soldaat in soldaten:
             print(soldaat)
+
+
+
 
 def soldaten_beheren(soldaat_controller, wapen_controller):
     while True:
@@ -32,6 +41,10 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
         print("0. Terug naar hoofdmenu\n")
 
         keuze = input("Voer een optie in: ")
+
+
+
+
 
         if keuze == "1":
             while True:
@@ -46,7 +59,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                 while not familienaam:
                     print("Familienaam mag niet leeg zijn.")
                     Familienaam = input("Familienaam: ").strip()
-                familienaam = familienaam.capitalize()
+                familienaam = familienaam.title()
 
                 while True:
                     geboortedatum = input("Geboortedatum (dd-mm-jjjj): ")
@@ -108,7 +121,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
             while True:
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om te verwijderen: "))
                 if soldaat:
-                    test = input(f"Bent u zeker dat u {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam} ({soldaat.stamnummer}) wilt verwijderen?\n")
+                    test = input(f"Bent u zeker dat u {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam} ({soldaat.stamnummer}) wilt verwijderen? (ja/nee)\n")
                     if test == "ja":
                         soldaat_controller.verwijder_soldaat(soldaat.soldaat_id)
                         print("Soldaat verwijderd.")
@@ -127,17 +140,22 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om bij te werken: "))
                 if soldaat:
                     print("\nSoldaat bijwerken:")
-                    print("Druk enter indien u niet wenst te wijzigen.\n")
-                    nieuwe_voornaam = input(f"Voornaam aanpassen ({soldaat.voornaam}):") or soldaat.voornaam
-                    nieuwe_familienaam = input(f"Familienaam aanpassen ({soldaat.familienaam}):") or soldaat.familienaam
+                    print("Druk op enter indien u niet wenst te wijzigen.\n")
+                    nieuwe_voornaam = input(f"Voornaam aanpassen ({soldaat.voornaam}):").title() or soldaat.voornaam
+                    nieuwe_familienaam = input(f"Familienaam aanpassen ({soldaat.familienaam}):").title() or soldaat.familienaam
                     nieuwe_geboortedatum = input(f"Geboortedatum aanpassen ({soldaat.geboortedatum}):") or soldaat.geboortedatum
 
 
                     if (nieuwe_voornaam == soldaat.voornaam) and (nieuwe_familienaam == soldaat.familienaam) and (nieuwe_geboortedatum == soldaat.geboortedatum): 
                         print(f"Stamnummer blijft zoals het was. ({soldaat.stamnummer})")
-                        nieuw_stamnummer = ""
+                        nieuw_stamnummer = soldaat.stamnummer
+
                     else:
-                        nieuw_stamnummer = f"{nieuwe_voornaam[0]}{nieuwe_familienaam[0]}{nieuwe_geboortedatum[::-1]}".replace("-","")
+
+                        familienamen = nieuwe_familienaam.split()
+                        initialen = "".join([initiaal[0] for initiaal in familienamen]).upper()
+
+                        nieuw_stamnummer = f"{nieuwe_voornaam[0]}{initialen}{nieuwe_geboortedatum[::-1]}".replace("-","")
 
                         if soldaat_controller.controleer_stamnummer(nieuw_stamnummer):
                             print("Stamnummer bestaat al. Het wordt aangepast met 3 willekeurige karakters.")
@@ -146,15 +164,40 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
                         else:
                             print(f"Verkregen stamnummer: {nieuw_stamnummer}")
 
-                    nieuwe_rang = input(f"Rang aanpassen ({soldaat.rang}):") or soldaat.rang
-                    nieuw_component = input(f"Component aanpassen ({soldaat.component}):") or soldaat.component
+                    nieuwe_rang = input(f"Rang aanpassen ({soldaat.rang}):").capitalize() or soldaat.rang
+
+                    nieuw_component = input(f"Component aanpassen ({soldaat.component}):").lower() or soldaat.component
+
+                    while nieuw_component not in ['landmacht', 'zeemacht', 'luchtmacht', 'medisch component']:
+                        print("Ongeldige invoer. U kunt alleen kiezen tussen landmacht, zeemacht, luchtmacht of medisch component.")
+                        nieuw_component = input(f"Component aanpassen ({soldaat.component}):").lower()
+
+                    nieuw_component = nieuw_component.capitalize()
+
+                    if nieuw_component != soldaat.component:
+                        test = input(f"Wilt u een nieuw wapen toewijzen aan {nieuwe_rang} {nieuwe_voornaam[0]}.{nieuwe_familienaam} ({nieuw_stamnummer})? (ja/nee)\n")
+                        nieuw_serienummer = soldaat.wapen_serienummer
+
+                        if test == "ja":
+
+                            wapen_naam = WapenController.check_component_wapen(nieuw_component)
+                            nieuw_serienummer = WapenController.genereer_serienummer(nieuw_component, wapen_naam)
+
+                            wapen = Wapen(None, wapen_naam, nieuw_serienummer)
+                            wapen_controller.voeg_wapen_toe(wapen)
+
+                        else:
+                            nieuw_serienummer = soldaat.wapen_serienummer
+                    
+                            
+
                     
                     if nieuw_stamnummer:
-                        soldaat_controller.update_soldaat_met_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuw_component, soldaat.soldaat_id)
+                        soldaat_controller.update_soldaat_met_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuw_component, nieuw_serienummer, soldaat.soldaat_id)
                         print("Soldaat bijgewerkt.\n")
                         break
                     else: 
-                        soldaat_controller.update_soldaat_zonder_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, soldaat.stamnummer, nieuwe_rang, nieuw_component, soldaat.soldaat_id)
+                        soldaat_controller.update_soldaat_zonder_stamnummer(nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, soldaat.stamnummer, nieuwe_rang, nieuw_component, nieuw_serienummer, soldaat.soldaat_id)
                         print("Soldaat bijgewerkt.\n")
                         break
                 else:
@@ -165,7 +208,6 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "4":
-            # soldaten = soldaat_controller.krijg_alle_soldaten()
             toon_soldaten(soldaat_controller.krijg_alle_soldaten())
 
 
@@ -193,8 +235,30 @@ def wapens_beheren(wapen_controller):
         keuze = input("Voer een optie in: ")
 
         if keuze == "1":
-            # Implementeer toevoegen van een wapen
-            print("1")
+
+            wapen_naam = input("Naam van het wapen: ").upper()
+            while not wapen_naam:
+                    print("Naam mag niet leeg zijn.")
+                    wapen_naam = input("Naam van het wapen: ").strip()
+
+            component = input("Component waar dit wapen bij hoort: ")
+            while not component:
+                    print("Component mag niet leeg zijn.")
+                    component = input("Component: ").strip()
+
+            while component not in ['landmacht', 'zeemacht', 'luchtmacht', 'medisch component']:
+                    print("Ongeldige invoer. U kunt alleen kiezen tussen landmacht, zeemacht, luchtmacht of medisch component.")
+                    component = input("Component: ").lower()
+
+            serienummer = WapenController.genereer_serienummer(component, wapen_naam).upper()
+
+            print(f"Uw verkregen serienummer: {serienummer}")
+
+            wapen = Wapen(None, wapen_naam, serienummer)
+            wapen_controller.voeg_wapen_toe(wapen)
+
+            print("Wapen toegevoegd.")
+
 
         elif keuze == "2":
             # Implementeer verwijderen van een wapen

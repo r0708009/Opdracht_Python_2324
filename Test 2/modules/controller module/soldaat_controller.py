@@ -22,14 +22,14 @@ class SoldaatController:
         self.cursor.execute(query, (soldaat_id,))
         self.conn.commit()
 
-    def update_soldaat_met_stamnummer(self, nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuwe_component, soldaat_id):
-        query = "UPDATE soldaten SET voornaam = ?, familienaam = ?, geboortedatum = ?, stamnummer = ?, rang = ?, component = ? WHERE id = ?"
-        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuwe_component, soldaat_id))
+    def update_soldaat_met_stamnummer(self, nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuwe_component, nieuw_serienummer, soldaat_id):
+        query = "UPDATE soldaten SET voornaam = ?, familienaam = ?, geboortedatum = ?, stamnummer = ?, rang = ?, component = ?, wapen_serienummer = ? WHERE id = ?"
+        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, nieuw_stamnummer, nieuwe_rang, nieuwe_component, nieuw_serienummer, soldaat_id))
         self.conn.commit()
 
-    def update_soldaat_zonder_stamnummer(self, nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component, soldaat_id):
-        query = "UPDATE soldaten SET voornaam = ?, familienaam = ?, geboortedatum = ?, stamnummer = ?, rang = ?, component = ? WHERE id = ?"
-        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component))
+    def update_soldaat_zonder_stamnummer(self, nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component,nieuw_serienummer, soldaat_id):
+        query = "UPDATE soldaten SET voornaam = ?, familienaam = ?, geboortedatum = ?, stamnummer = ?, rang = ?, component = ?, wapen_serienummer = ? WHERE id = ?"
+        self.cursor.execute(query, (nieuwe_voornaam, nieuwe_familienaam, nieuwe_geboortedatum, stamnummer, nieuwe_rang, nieuwe_component, nieuw_serienummer, soldaat_id))
         self.conn.commit()
 
     def krijg_soldaat_by_id(self, soldaat_id):
@@ -42,12 +42,6 @@ class SoldaatController:
             return soldaat
         else:
             return None
-
-    # def krijg_soldaat_by_id(self, soldaat_id):
-    #     query = "SELECT * FROM Soldaten WHERE ID = ?"
-    #     self.cursor.execute(query, (soldaat_id,))
-    #     result = self.cursor.fetchone()
-    #     return result
 
     def krijg_alle_soldaten(self):
         query = "SELECT * FROM soldaten"
