@@ -18,7 +18,7 @@
 
 Het doel van de applicatie is om soldaten en hun wapens toe te voegen aan de database met een overzichtige cli. 
 
-Als eerst ziet men een hoofdmenu. Het is de bedoeling om soldaten en wapens toe te voegen.
+Als eerst ziet men een hoofdmenu.
 
 Als men op '1' drukt komen we in een ander menu om de soldaten te beheren. Hier kan men soldaten toevoegen, verwijderen, aanpassen of alle soldaten uit de database in een lijst weergeven.
 
