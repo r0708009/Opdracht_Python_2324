@@ -14,11 +14,15 @@
 
 Het doel van de applicatie is om soldaten en hun wapens toe te voegen aan de database met behulp van een overzichtelijke CLI.
 
-Bij het openen van de applicatie verschijnt eerst een hoofdmenu.
+Bij het openen van de applicatie verschijnt eerst een hoofdmenu. In het hoofdmenu wordt interactie verwacht van de gebruiker.
 
-Door op '1' te drukken komt men in een ander menu om de soldaten te beheren. Hier kan men soldaten toevoegen, verwijderen, aanpassen of alle soldaten uit de database in een lijst weergeven.
+Door bijvoorbeeld op '1' te drukken komt men in een ander menu om de soldaten te beheren. Hier kan men soldaten toevoegen, verwijderen, aanpassen of alle soldaten uit de database in een lijst weergeven.
 
 Bij het toevoegen van soldaten moeten gegevens worden ingevoerd. Niet alle gegevens worden handmatig ingevoerd. Zo wordt bijvoorbeeld het stamnummer van de soldaat automatisch berekend op basis van de voornaam, achternaam en geboortedatum. Als er al iemand met dat stamnummer in de database staat, worden er 3 willekeurige karakters toegevoegd. Daarnaast wordt aan de soldaat een wapen toegewezen op basis van zijn component. Bij het toekennen wordt het wapen ook aangemaakt; deze krijgt een serienummer dat wordt berekend op basis van het meegegeven component. Als u achteraf het component wijzigt, wordt ook gevraagd of u uw huidige wapen wilt behouden of een wapen van het nieuwe component wilt.
+
+Hier kan met ook soldaten uit de database verwijderen, aanpassen of zelf een nieuw wapen toekennen. Daarvoor moet men eerst gaan kijken in de database met bestaande wapens. Een niet bestaand serienummer zal dus een fout opgeven; dat wapen zal eerst moeten worden toegevoegd. 
+
+Hier kan men ook een lijst geven van alle soldaten in de database met hun informatie.
 
 Terugkeren naar het hoofdmenu kan door op '0' te drukken, waarna de optie '2. Wapens beheren' gekozen kan worden. Hier kan men handelingen uitvoeren met de tabel 'wapens' in de database.
 
