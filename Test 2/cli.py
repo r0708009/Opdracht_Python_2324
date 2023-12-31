@@ -147,7 +147,6 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
             while True:
                 soldaat = soldaat_controller.krijg_soldaat_by_id(input("Soldaat ID om bij te werken: "))
                 if soldaat:
-                    print("\nSoldaat bijwerken:")
                     print("Druk op enter indien u niet wenst te wijzigen.\n")
                     nieuwe_voornaam = input(f"Voornaam aanpassen ({soldaat.voornaam}):").title() or soldaat.voornaam
                     nieuwe_familienaam = input(f"Familienaam aanpassen ({soldaat.familienaam}):").title() or soldaat.familienaam
@@ -252,7 +251,8 @@ def wapens_beheren(wapen_controller):
                     print("Naam mag niet leeg zijn.")
                     wapen_naam = input("Naam van het wapen: ").strip()
 
-            component = input("Component waar dit wapen bij hoort: ")
+            component = input("Component waar dit wapen bij hoort: ").lower()
+
             while not component:
                     print("Component mag niet leeg zijn.")
                     component = input("Component: ").strip()
@@ -289,10 +289,6 @@ def wapens_beheren(wapen_controller):
                             wapen_controller.verwijder_wapen(wapen.wapen_id)
                             print("Wapen verwijderd.")
 
-
-                        # wapen_controller.verwijder_wapen(wapen.wapen_id)
-                        # print("Wapen verwijderd.")
-
                         break
                     else:
                         break
@@ -305,8 +301,25 @@ def wapens_beheren(wapen_controller):
 
 
         elif keuze == "3":
-            # Implementeer bijwerken van een wapen
-            print("3")
+            print("\nWapen bijwerken.")
+            while True:
+                wapen = wapen_controller.krijg_wapen_by_id(input("Wapen ID om aan te passen: "))
+
+                if  wapen:
+                    print("Druk op enter indien u niet wenst te wijzigen.\n")
+                    nieuwe_naam = input(f"Naam aanpassen ({wapen.naam}):").upper() or wapen.naam
+
+                    wapen_controller.update_wapen(wapen.wapen_id, nieuwe_naam)
+
+                    print("Wapen bijgewerkt.")
+                    break
+
+            print(f"{nieuwe_naam} {wapen.serienummer} kan om veiligheidsredenen geen nieuw serienummer krijgen.")
+
+
+
+                    
+
 
         elif keuze == "4":
             # Implementeer weergeven van alle wapens

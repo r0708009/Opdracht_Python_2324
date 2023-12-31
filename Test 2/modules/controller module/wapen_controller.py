@@ -31,9 +31,9 @@ class WapenController:
         self.cursor.execute(query, (wapen_id,))
         self.conn.commit()
 
-    def update_wapen(self, wapen_id, nieuwe_naam, nieuwe_eenheid, nieuw_serienummer):
-        query = "UPDATE wapens SET wapen_naam = ?, eenheid = ?, serienummer = ? WHERE id = ?"
-        self.cursor.execute(query, (nieuwe_naam, nieuwe_eenheid, nieuw_serienummer, wapen_id))
+    def update_wapen(self, wapen_id, nieuwe_naam):
+        query = "UPDATE wapens SET naam = ? WHERE id = ?"
+        self.cursor.execute(query, (nieuwe_naam, wapen_id))
         self.conn.commit()
 
     def krijg_wapen_by_id(self, wapen_id):
