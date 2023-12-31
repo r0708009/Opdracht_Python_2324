@@ -4,9 +4,12 @@
 4. Bestudeer je README.md.
 5. Run het project.
 
+---------------------------------------------------------------------------------------------
+1. run 'python initialaze_database.py' die zich in de map 'Applicatie' bevindt om de database te initialiseren.
+2. run daarna 'python cli.py' om de applicatie te starten.
 
-1. run 'python initialaze_database.py' om de database te initialiseren.
-2. 
+
+
 
 
 
