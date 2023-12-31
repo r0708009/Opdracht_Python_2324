@@ -85,7 +85,7 @@ class SoldaatController:
         soldaten = self.cursor.fetchall()
         return soldaten
 
-    def check_wapen_voor_verwijdering(serienummer):
+    def check_aanwezigheid_wapen(serienummer):
         query = "SELECT COUNT(*) FROM soldaten WHERE wapen_serienummer = ?"
         connection = sqlite3.connect("././db/soldaten_database.db")
         cursor = connection.cursor()

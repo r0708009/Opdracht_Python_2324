@@ -36,6 +36,17 @@ class WapenController:
         self.cursor.execute(query, (nieuwe_naam, wapen_id))
         self.conn.commit()
 
+    def wijs_wapen_toe(self, soldaat_id, serienummer):
+        query = "UPDATE soldaten SET wapen_serienummer = ? WHERE id = ?"
+        self.cursor.execute(query, (serienummer, soldaat_id))
+        self.conn.commit()
+
+    def krijg_serienummer_van_wapen(self, wapen_id):
+        query = "SELECT serienummer FROM wapens WHERE id = ?"
+        self.cursor.execute(query, (wapen_id,))
+        serienummer = self.cursor.fetchone()
+        return serienummer
+
     def krijg_wapen_by_id(self, wapen_id):
         query = "SELECT * FROM wapens WHERE id = ?"
         self.cursor.execute(query, (wapen_id,))

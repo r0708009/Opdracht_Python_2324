@@ -41,7 +41,8 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
         print("\n1. Voeg soldaat toe")
         print("2. Verwijder soldaat")
         print("3. Update soldaat")
-        print("4. Toon alle soldaten")
+        print("4. Nieuw wapen toewijzen aan soldaat")
+        print("5. Toon alle soldaten")
         print("0. Terug naar hoofdmenu\n")
 
         keuze = input("Voer een optie in: ")
@@ -217,8 +218,44 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
 
-
         elif keuze == "4":
+            soldaat = soldaat_controller.krijg_soldaat_by_id(input("ID van de Soldaat die een nieuw wapen krijgt: "))
+
+            if soldaat:
+                wapen = wapen_controller.krijg_wapen_via_serienummer(soldaat.wapen_serienummer)
+                print(f"Huidig wapen van {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam}: {wapen.naam} ({soldaat.wapen_serienummer})\n")
+
+                test = input("Wilt u dit wijzigen? (ja/nee)\n").lower()
+
+                if test == "ja":
+                    wapen = wapen_controller.krijg_wapen_by_id(input(f"ID van het wapen die u wilt toekennen aan {soldaat.rang} {soldaat.voornaam[0]}.{soldaat.familienaam}:\n"))
+                    if SoldaatController.check_aanwezigheid_wapen(wapen.serienummer):
+                        print("Dit wapen is al aan een soldaat toegewezen.")
+                    else:
+                        if wapen: 
+                            wapen_controller.wijs_wapen_toe(soldaat.soldaat_id, wapen.serienummer)
+                            print("Wapen toegekend.")
+                        else:
+                            print("Wapen bestaat niet. U moet deze eerst toevoegen.")
+                else:
+                    continue
+            else:
+                print("Geen soldaat gevonden met dit ID.")
+                continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+        elif keuze == "5":
             print("\nLijst van alle soldaten:")
             toon_soldaten(soldaat_controller.krijg_alle_soldaten())
 
@@ -287,7 +324,7 @@ def wapens_beheren(wapen_controller):
                 if wapen:
                     test = input(f"Bent u zeker dat u de {wapen.naam} ({wapen.serienummer}) wilt verwijderen? (ja/nee)\n")
                     if test == "ja":
-                        if SoldaatController.check_wapen_voor_verwijdering(wapen.serienummer):
+                        if SoldaatController.check_aanwezigheid_wapen(wapen.serienummer):
                             print("Dit wapen kan niet worden verwijderd omdat het serienummer aan een soldaat is gekoppeld.")
                         else:
                             wapen_controller.verwijder_wapen(wapen.wapen_id)
