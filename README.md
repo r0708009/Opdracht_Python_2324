@@ -30,4 +30,4 @@ Het gebruik van het menu spreekt voor zich. Bij het toevoegen van een nieuw wape
 
 Daarnaast biedt het hoofdmenu de optie 'Opzoekingen uitvoeren', waar men specifieke zaken kan opzoeken. Zo kan een soldaat worden gevonden op basis van zijn naam (voor- en achternaam), stamnummer, of het serienummer van een wapen. Deze laatste optie is handig als een wapen onderhouden wordt en de juiste persoon moet worden gevonden om het wapen terug te ontvangen.
 
-Uiteindelijk kan hier een csv-bestand worden opgevraagd met via het csv_export-bestand, die het csv-bestand zal plaatsten in de map 'exported_data'. De output van dit bestand kan op zijn beurt worden omgezet naar een excel-bestand via het 'csv_to_exce'-bestand.
+Uiteindelijk kan hier een csv-bestand worden opgevraagd met via het csv_export-bestand in de map db, die het csv-bestand zal plaatsten in de map 'exported_data'. De output van dit bestand kan op zijn beurt worden omgezet naar een excel-bestand via het 'csv_to_excel'-bestand.
