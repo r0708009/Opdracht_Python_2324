@@ -173,13 +173,15 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
                     nieuwe_rang = input(f"Rang aanpassen ({soldaat.rang}):").capitalize() or soldaat.rang
 
-                    nieuw_component = input(f"Component aanpassen ({soldaat.component}):").lower() or soldaat.component
+                    nieuw_component = input(f"Component aanpassen ({soldaat.component}):").lower() or soldaat.component.lower()
 
                     while nieuw_component not in ['landmacht', 'zeemacht', 'luchtmacht', 'medisch component']:
                         print("Ongeldige invoer. U kunt alleen kiezen tussen landmacht, zeemacht, luchtmacht of medisch component.")
                         nieuw_component = input(f"Component aanpassen ({soldaat.component}):").lower()
 
                     nieuw_component = nieuw_component.capitalize()
+
+                    nieuw_serienummer = soldaat.wapen_serienummer
 
                     if nieuw_component != soldaat.component:
                         test = input(f"Wilt u een nieuw wapen toewijzen aan {nieuwe_rang} {nieuwe_voornaam[0]}.{nieuwe_familienaam} ({nieuw_stamnummer})? (ja/nee)\n")
@@ -195,6 +197,8 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
                         else:
                             nieuw_serienummer = soldaat.wapen_serienummer
+
+                    nieuw_serienummer = nieuw_serienummer.upper()
                     
                             
 

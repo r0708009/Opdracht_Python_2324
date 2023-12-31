@@ -14,7 +14,7 @@ cursor.execute(query)
 
 data = cursor.fetchall()
 
-csv_file_path = 'exported_data/soldaten_en_wapens.csv'
+csv_file_path = 'exported_data/soldaten_en_wapens_cvs.csv'
 
 with open(csv_file_path, 'w', newline='', encoding='utf-8') as csv_file:
     csv_writer = csv.writer(csv_file)
