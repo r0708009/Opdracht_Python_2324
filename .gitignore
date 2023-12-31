@@ -1,2 +1,6 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
 
-Test 2/db/soldaten_database.db
+Applicatie/config.py
+
+Applicatie/db/soldaten_database.db
