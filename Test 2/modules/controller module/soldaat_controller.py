@@ -61,6 +61,12 @@ class SoldaatController:
         soldaat = self.cursor.fetchone()
         return soldaat
 
+    def zoek_soldaat_op_serienummer(self, serienummer):
+        query = "SELECT * FROM soldaten WHERE wapen_serienummer = ?"
+        self.cursor.execute(query, (serienummer,))
+        soldaat = self.cursor.fetchone()
+        return soldaat
+
     def krijg_soldaten_van_component(self, component):
         query = "SELECT * FROM soldaten WHERE component = ?"
         self.cursor.execute(query, (component,))

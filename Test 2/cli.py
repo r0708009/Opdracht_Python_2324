@@ -369,12 +369,31 @@ def opzoekingen_uitvoeren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "3":
-            print("3")
+            print("\nWie zoekt u?")
+            wapen_serienummer = input("Geef het serienummer van het wapen: ").upper()
+            
+
+            soldaat = soldaat_controller.zoek_soldaat_op_serienummer(wapen_serienummer)
+
+            if soldaat:
+                print(soldaat)
+                break
+            else:
+                print("Geen soldaat gevonden met het ingegeven serienummer.")
             
 
         elif keuze == "4":
-            # Implementeer weergeven van soldaten van een bepaalde eenheid
-            print("3")
+            print("\nWie zoekt u?")
+            gezocht_component = input("Geef het component waarvan u de soldaten zoekt: ").capitalize()
+            
+
+            soldaten = soldaat_controller.krijg_soldaten_van_component(gezocht_component)
+
+            if soldaten:
+                toon_soldaten(soldaten)
+                break
+            else:
+                print("Geen soldaten gevonden van dit component.")
 
         elif keuze == "0":
             break
