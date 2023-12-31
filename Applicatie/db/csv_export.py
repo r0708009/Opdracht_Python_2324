@@ -1,7 +1,7 @@
 import sqlite3
 import csv
 
-conn = sqlite3.connect('db/soldaten_database.db')
+conn = sqlite3.connect('soldaten_database.db')
 cursor = conn.cursor()
 
 query = """
@@ -14,7 +14,7 @@ cursor.execute(query)
 
 data = cursor.fetchall()
 
-csv_file_path = 'exported_data/soldaten_en_wapens_csv.csv'
+csv_file_path = './exported_data/soldaten_en_wapens_csv.csv'
 
 with open(csv_file_path, 'w', newline='', encoding='utf-8') as csv_file:
     csv_writer = csv.writer(csv_file)
