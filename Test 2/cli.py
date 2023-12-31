@@ -215,7 +215,7 @@ def soldaten_beheren(soldaat_controller, wapen_controller):
 
 
         elif keuze == "4":
-            print("\nLijst van alles soldaten:")
+            print("\nLijst van alle soldaten:")
             toon_soldaten(soldaat_controller.krijg_alle_soldaten())
 
 
@@ -322,8 +322,8 @@ def wapens_beheren(wapen_controller):
 
 
         elif keuze == "4":
-            # Implementeer weergeven van alle wapens
-            print("4")
+            print("\nLijst van alle wapens:")
+            toon_wapens(wapen_controller.krijg_alle_wapens())
 
         elif keuze == "0":
             break
