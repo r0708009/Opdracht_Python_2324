@@ -51,11 +51,11 @@ class SoldaatController:
 
     def zoek_soldaat_op_naam(self, voornaam, familienaam):
         query = "SELECT * FROM soldaten WHERE voornaam = ? AND familienaam = ?"
-        self.cursor.execute(query, (naam,))
+        self.cursor.execute(query, (voornaam, familienaam))
         soldaten = self.cursor.fetchall()
         return soldaten
 
-    def krijg_soldaten_van_component(self, comonent):
+    def krijg_soldaten_van_component(self, component):
         query = "SELECT * FROM soldaten WHERE component = ?"
         self.cursor.execute(query, (component,))
         soldaten = self.cursor.fetchall()

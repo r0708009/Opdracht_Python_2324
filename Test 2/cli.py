@@ -340,8 +340,18 @@ def opzoekingen_uitvoeren(soldaat_controller, wapen_controller):
         keuze = input("Voer een optie in: ")
 
         if keuze == "1":
-            # Implementeer zoeken van een soldaat op naam
-            print("1")
+            print("\nWie zoekt u?")
+            soldaat_voornaam = input("Geef de voornaam van de soldaat: ").capitalize()
+            soldaat_familienaam = input("Geef de familienaam van de soldaat: ").title()
+
+            soldaat = soldaat_controller.zoek_soldaat_op_naam(soldaat_voornaam, soldaat_familienaam)
+
+            if soldaat:
+                print(soldaat)
+                break
+            else:
+                print("Geen soldaat gevonden met de ingegeven naam.")
+
 
         elif keuze == "2":
             # Implementeer zoeken van een wapen van een bepaalde eenheid
