@@ -1,4 +1,4 @@
-1. Kloon de githubrepo.
+1. Clone de githubrepo.
 2. Creëer een virtuele omgeving.
 3. Installeer in de virtuele omgeving de nodige packages van de requirement.txt , met het command pip install -r requirements.txt.
 4. Bestudeer je README.md.
